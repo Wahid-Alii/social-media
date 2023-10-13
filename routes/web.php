@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UnlikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,6 @@ Route::any('callback', [GoogleController::class, 'callbackFromGoogle'])->name('c
 Route::resource('posts',PostController::class);
 Route::post('like/{post}/store', [LikeController::class, 'store'])->name('like.store');
 Route::delete('like/{post}/delete', [LikeController::class, 'destroy'])->name('like.delete');
+
+Route::post('unLike/{post}/store', [UnlikeController::class, 'store'])->name('unLike.store');
+Route::delete('unLike/{post}/delete', [UnLikeController::class, 'destroy'])->name('unLike.delete');

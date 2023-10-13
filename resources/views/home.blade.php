@@ -87,19 +87,28 @@
                                                             </button>
                                                             </form>
                                                         @endif
+                                                        @if (!$post->unLikedBy(auth()->user()))
+                                                            <form action="{{ route('unLike.store', $post->id) }}"
+                                                                method="post" class="col-4 d-inline">
+                                                                @csrf
 
-                                                        {{-- <form action="" method="post" class="col-4 d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                                <button type="submit" class="border-0 bg-transparent"
+                                                                style="font-size: 20px;">
+                                                                <i class="far fa-thumbs-down"></i> {{ $post->unLikes->count() > 0 ?  $post->unLikes->count() : ''}}
+                                                            </button>
+                                                            </form>
+                                                        @else
+                                                            <form action="{{ route('unLike.delete', $post) }}" method="post"
+                                                                class="col-4 d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
 
-                                                    <button type="submit" class="border-0 bg-transparent"
-                                                        style="font-size: 20px;"><i class="fas fa-heart"
-                                                            style="color: #7A2522"></i>
-                                                    </button>
-                                                </form> --}}
-                                                        <div class="col-4 d-inline" style="font-size: 25px;"><i
-                                                                class="far fa-thumbs-down"> </i>
-                                                        </div>
+                                                                <button type="submit" class="border-0 bg-transparent"
+                                                                style="font-size: 20px; color:blue">
+                                                                <i class="fas fa-thumbs-down"></i> {{ $post->unLikes->count() > 0 ?  $post->unLikes->count() : ''}}
+                                                            </button>
+                                                            </form>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

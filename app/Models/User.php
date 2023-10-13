@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Like;
+use App\Models\Unlike;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,5 +51,8 @@ class User extends Authenticatable
     }
     public function likes(){
       return $this->hasMany(Like::class);
+    }
+    public function unLikes(){
+      return $this->hasMany(Unlike::class);
     }
 }

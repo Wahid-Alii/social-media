@@ -29,6 +29,9 @@ class LikeController extends Controller
      */
     public function store(Post $post, Request $request)
     {
+        if($post->unLikedBy($request->user())){
+            $request->user()->unLikes()->where('post_id', $post->id)->delete();
+        }
         if ($post->likedBy($request->user())) {
             return back();
         }

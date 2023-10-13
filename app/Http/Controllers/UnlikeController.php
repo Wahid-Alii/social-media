@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Unlike;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,19 @@ class UnlikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Post $post, Request $request)
     {
-        //
+        if($post->likedBy($request->user())){
+            $request->user()->likes()->where('post_id', $post->id)->delete();
+        }
+        if ($post->UnLikedBy($request->user())) {
+            return back();
+        }
+        $post->unLikes()->create([
+            'user_id' => $request->user()->id,
+            'post_id' => $post->id,
+        ]);
+        return back();
     }
 
     /**
@@ -58,8 +69,9 @@ class UnlikeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Unlike $unlike)
+    public function destroy(Request $request, Post $post)
     {
-        //
+        $request->user()->unLikes()->where('post_id', $post->id)->delete();
+        return back();
     }
 }
